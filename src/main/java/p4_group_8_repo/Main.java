@@ -31,7 +31,7 @@ public class Main extends Application {
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 
-		BackgroundImage froggerback = new BackgroundImage("file:src/main/resources/iKogsKW.png");
+		BackgroundImage froggerback = new BackgroundImage("file:src/main/resources/FroggerGameBackDrop.png");
 	    
 		background.add(froggerback);
 
@@ -72,11 +72,11 @@ public class Main extends Application {
 		//End end3 = new End();
 		//End end4 = new End();
 		//End end5 = new End();
-		background.add(new End(13,96));
-		background.add(new End(141,96));
-		background.add(new End(141 + 141-13,96));
-		background.add(new End(141 + 141-13+141-13+1,96));
-		background.add(new End(141 + 141-13+141-13+141-13+3,96));
+		background.add(new End(10,96));
+		background.add(new End(130,96));
+		background.add(new End(130 + 130-10,96));
+		background.add(new End(130 + 130-10+130-10+1,96));
+		background.add(new End(130 + 130-10+130-10+130-10+3,96));
 		animal = new Animal("file:src/main/resources/froggerUp.png");
 		background.add(animal);
 		background.add(new Obstacle("file:src/main/resources/truck1"+"Right.png", 0, 649, 1, 120, 120));
@@ -90,7 +90,7 @@ public class Main extends Application {
 		background.add(new Obstacle("file:src/main/resources/truck2Right.png", 0, 540, 1, 200, 200));
 		background.add(new Obstacle("file:src/main/resources/truck2Right.png", 500, 540, 1, 200, 200));
 		background.add(new Obstacle("file:src/main/resources/car1Left.png", 500, 490, -5, 50, 50));
-		background.add(new Digit(0, 30, 360, 25));
+		background.add(new Digit(0, 30, 532, 33));
 		//background.add(obstacle);
 		//background.add(obstacle1);
 		//background.add(obstacle2);
@@ -136,8 +136,8 @@ public class Main extends Application {
     		  int d = n / 10;
     		  int k = n - d * 10;
     		  n = d;
-    		  background.add(new Digit(k, 30, 360 - shift, 25));
-    		  shift+=30;
+    		  background.add(new Digit(k, 30, 532 - shift, 33));
+    		  shift+=27;
     		}
     }
 }

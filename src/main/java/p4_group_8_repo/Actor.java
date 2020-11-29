@@ -1,9 +1,9 @@
 package p4_group_8_repo;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputEvent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public abstract class Actor extends ImageView{
@@ -13,21 +13,22 @@ public abstract class Actor extends ImageView{
         setY(getY() + dy);
     }
 
+    //getters
     public World getWorld() {
         return (World) getParent();
     }
-
     public double getWidth() {
         return this.getBoundsInLocal().getWidth();
     }
-
     public double getHeight() {
         return this.getBoundsInLocal().getHeight();
     }
 
-    public <A extends Actor> java.util.List<A> getIntersectingObjects(java.lang.Class<A> cls){
-        ArrayList<A> someArray = new ArrayList<A>();
-        for (A actor: getWorld().getObjects(cls)) {
+    //takes out the import part and put it at the top
+    //A -> ActorClass for ease of understanding
+    public <ActorClass extends Actor> List<ActorClass> getIntersectingObjects(java.lang.Class<ActorClass> cls){
+        ArrayList<ActorClass> someArray = new ArrayList<>();
+        for (ActorClass actor: getWorld().getObjects(cls)) {
             if (actor != this && actor.intersects(this.getBoundsInLocal())) {
                 someArray.add(actor);
             }
@@ -35,13 +36,11 @@ public abstract class Actor extends ImageView{
         return someArray;
     }
     
-    public void manageInput(InputEvent e) {
-        
-    }
+    //remove manageInput (unused method)
 
-    public <A extends Actor> A getOneIntersectingObject(java.lang.Class<A> cls) {
-        ArrayList<A> someArray = new ArrayList<A>();
-        for (A actor: getWorld().getObjects(cls)) {
+    public <ActorClass extends Actor> ActorClass getOneIntersectingObject(java.lang.Class<ActorClass> cls) {
+        ArrayList<ActorClass> someArray = new ArrayList<>();
+        for (ActorClass actor: getWorld().getObjects(cls)) {
             if (actor != this && actor.intersects(this.getBoundsInLocal())) {
                 someArray.add(actor);
                 break;
