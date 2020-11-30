@@ -12,7 +12,8 @@ public class MyStage extends World{
 	public void act(long now) {
 		
 	}
-	
+
+	//empty constructor
 	public MyStage() {
 		
 //		mediaPlayer.play();

@@ -17,7 +17,6 @@ public class WetTurtle extends Actor{
 				if (now/900000000  % 4 ==0) {
 					setImage(turtle2);
 					sunk = false;
-					
 				}
 				else if (now/900000000 % 4 == 1) {
 					setImage(turtle1);
@@ -37,6 +36,8 @@ public class WetTurtle extends Actor{
 		if (getX() < -75 && speed<0)
 			setX(600);
 	}
+
+	//constructor
 	public WetTurtle(int xpos, int ypos, int s, int w, int h) {
 		turtle1 = new Image("file:src/main/resources/TurtleAnimation1.png", w, h, true, true);
 		turtle2 = new Image("file:src/main/resources/TurtleAnimation2Wet.png", w, h, true, true);

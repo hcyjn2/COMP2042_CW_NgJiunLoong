@@ -15,7 +15,8 @@ public class End extends Actor{
 		setY(y);
 		setImage(new Image("file:src/main/resources/End.png", 60, 60, true, true));
 	}
-	
+
+	//adjusted frogend dimension
 	public void setEnd() {
 		setImage(new Image("file:src/main/resources/FrogEnd.png", 70, 58, true, true));
 		activated = true;
