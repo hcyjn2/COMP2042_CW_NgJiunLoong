@@ -10,6 +10,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class Animal extends Actor {
+	//initialize variables
 	Image imgW1;
 	Image imgA1;
 	Image imgS1;

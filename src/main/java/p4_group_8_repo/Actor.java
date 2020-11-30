@@ -38,16 +38,17 @@ public abstract class Actor extends ImageView{
     
     //remove manageInput (unused method)
 
-    public <ActorClass extends Actor> ActorClass getOneIntersectingObject(java.lang.Class<ActorClass> cls) {
-        ArrayList<ActorClass> someArray = new ArrayList<>();
-        for (ActorClass actor: getWorld().getObjects(cls)) {
-            if (actor != this && actor.intersects(this.getBoundsInLocal())) {
-                someArray.add(actor);
-                break;
-            }
-        }
-        return someArray.get(0);
-    }
+    //unused method
+//    public <ActorClass extends Actor> ActorClass getOneIntersectingObject(java.lang.Class<ActorClass> cls) {
+//        ArrayList<ActorClass> someArray = new ArrayList<>();
+//        for (ActorClass actor: getWorld().getObjects(cls)) {
+//            if (actor != this && actor.intersects(this.getBoundsInLocal())) {
+//                someArray.add(actor);
+//                break;
+//            }
+//        }
+//        return someArray.get(0);
+//    }
 
     public abstract void act(long now);
 
