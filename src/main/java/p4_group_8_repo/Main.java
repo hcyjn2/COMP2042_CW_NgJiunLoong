@@ -1,11 +1,16 @@
 package p4_group_8_repo;
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import p4_group_8_repo.ui_components.GameMenu;
+import p4_group_8_repo.ui_components.MusicButton;
 
 public class Main extends Application {
 	//initialize variables
@@ -22,6 +27,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
 
 		backgroundStage = new MyStage();
+		MusicButton musicButton = new MusicButton(520,755, backgroundStage);
 		Scene scene  = new Scene(backgroundStage,566,800);
 		//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
@@ -30,6 +36,7 @@ public class Main extends Application {
 		BackgroundImage backgroundImage = new BackgroundImage("file:src/main/resources/FroggerGameBackDrop.png");
 	    
 		backgroundStage.add(backgroundImage);
+		backgroundStage.add(musicButton);
 
 		backgroundStage.add(new Log("file:src/main/resources/log3.png", 150, 0, 166, 0.75));
 		backgroundStage.add(new Log("file:src/main/resources/log3.png", 150, 220, 166, 0.75));
@@ -90,6 +97,7 @@ public class Main extends Application {
 		//background.add(obstacle);
 		//background.add(obstacle1);
 		//background.add(obstacle2);
+
 		backgroundStage.start();
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -99,9 +107,9 @@ public class Main extends Application {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-            	if (frogger.changeScore()) {
+            	if (frogger.changeScore())
             		setNumber(frogger.getPoints());
-            	}
+
             	if (frogger.getStop()) {
             		System.out.print("STOP:");
             		backgroundStage.stopMusic();
@@ -116,6 +124,7 @@ public class Main extends Application {
             }
         };
     }
+
 	public void start() {
 		backgroundStage.playMusic();
     	createTimer();

@@ -21,7 +21,7 @@ public class Frogger extends Actor {
 	Image movingRight;
 	int points = 0;
 	int end = 0;
-	private boolean second = false;
+	private boolean switchImage = false;
 	boolean canMove = true;
 	double movement = 13.3333333*2;
 	double movementX = 10.666666*2;
@@ -51,49 +51,49 @@ public class Frogger extends Actor {
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
 				if (canMove) {
-					if (second) {
+					if (switchImage) {
 						if (event.getCode() == KeyCode.W) {
 							move(0, -movement);
 							changeScore = false;
 							setImage(facingUp);
-							second = false;
+							switchImage = false;
 						}
 						else if (event.getCode() == KeyCode.A) {
 							move(-movementX, 0);
 							setImage(facingLeft);
-							second = false;
+							switchImage = false;
 						}
 						else if (event.getCode() == KeyCode.S) {
 							move(0, movement);
 							setImage(facingDown);
-							second = false;
+							switchImage = false;
 						}
 						else if (event.getCode() == KeyCode.D) {
 							move(movementX, 0);
 							setImage(facingRight);
-							second = false;
+							switchImage = false;
 						}
 					}
 
 					else if (event.getCode() == KeyCode.W) {
 						move(0, -movement);
 						setImage(movingUp);
-						second = true;
+						switchImage = true;
 					}
 					else if (event.getCode() == KeyCode.A) {
 						move(-movementX, 0);
 						setImage(movingLeft);
-						second = true;
+						switchImage = true;
 					}
 					else if (event.getCode() == KeyCode.S) {
 						move(0, movement);
 						setImage(movingDown);
-						second = true;
+						switchImage = true;
 					}
 					else if (event.getCode() == KeyCode.D) {
 						move(movementX, 0);
 						setImage(movingRight);
-						second = true;
+						switchImage = true;
 					}
 				}
 
@@ -111,124 +111,98 @@ public class Frogger extends Actor {
 					}
 					move(0, -movement);
 					setImage(facingUp);
-					second = false;
+					switchImage = false;
 				}
 				else if (event.getCode() == KeyCode.A) {
 					move(-movementX, 0);
 					setImage(facingLeft);
-					second = false;
+					switchImage = false;
 				}
 				else if (event.getCode() == KeyCode.S) {
 					move(0, movement);
 					setImage(facingDown);
-					second = false;
+					switchImage = false;
 				}
 				else if (event.getCode() == KeyCode.D) {
 					move(movementX, 0);
 					setImage(facingRight);
-					second = false;
+					switchImage = false;
 				}}
 			}
 			
 		});
 	}
 
-	private void resetFroggerLocation() {
-		setX(265);
-		setY(679.8 + movement);
-	}
-
 	@Override
 	public void act(long now) {
 		int bounds = 0;
-		if (getY()<0 || getY()>734) {
+
+		if (getY()<0 || getY()>734)
 			resetFroggerLocation();
-		}
-		if (getX()<0) {
+
+		if (getX()<0)
 			move(movement*2, 0);
-		}
+
 		if (carDeath) {
 			canMove = false;
-			if ((now)% 11 ==0) {
-				carD++;
-			}
-			if (carD==1) {
+
+			incrementCarD(now);
+
+			if (carD == 1)
 				setImage(new Image("file:src/main/resources/cardeath1.png", imgSize, imgSize, true, true));
-			}
-			if (carD==2) {
+			else if (carD == 2)
 				setImage(new Image("file:src/main/resources/cardeath2.png", imgSize, imgSize, true, true));
-			}
-			if (carD==3) {
+			else if (carD == 3)
 				setImage(new Image("file:src/main/resources/cardeath3.png", imgSize, imgSize, true, true));
-			}
-			if (carD == 4) {
-				resetFroggerLocation();
+			else if (carD == 4){
 				carDeath = false;
-				carD = 0;
-				setImage(new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true));
-				canMove = true;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
+				deathAction();
 			}
-			
 		}
+
 		if (waterDeath) {
 			canMove = false;
-			if ((now)% 11 ==0) {
-				carD++;
-			}
-			if (carD==1) {
+
+			incrementCarD(now);
+
+			if (carD==1)
 				setImage(new Image("file:src/main/resources/waterdeath1.png", imgSize,imgSize , true, true));
-			}
-			if (carD==2) {
+			else if (carD==2)
 				setImage(new Image("file:src/main/resources/waterdeath2.png", imgSize,imgSize , true, true));
-			}
-			if (carD==3) {
+			else if (carD==3)
 				setImage(new Image("file:src/main/resources/waterdeath3.png", imgSize,imgSize , true, true));
-			}
-			if (carD == 4) {
+			else if (carD == 4)
 				setImage(new Image("file:src/main/resources/waterdeath4.png", imgSize,imgSize , true, true));
-			}
-			if (carD == 5) {
-				resetFroggerLocation();
+			else if (carD == 5){
 				waterDeath = false;
-				carD = 0;
-				setImage(new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true));
-				canMove = true;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
+				deathAction();
 			}
-			
+
 		}
-		
-		if (getX()>600) {
+
+		if (getX()>600)
 			move(-movement*2, 0);
-		}
-		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
+
+		if (getIntersectingObjects(Obstacle.class).size() >= 1)
 			carDeath = true;
-		}
-		if (getX() == 240 && getY() == 82) {
+
+		if (getX() == 240 && getY() == 82)
 			stop = true;
-		}
+
 		if (getIntersectingObjects(Log.class).size() >= 1 && canMove) {
 			if(getIntersectingObjects(Log.class).get(0).getLeft())
 				move(-2,0);
 			else
 				move (.75,0);
 		}
-		else if (getIntersectingObjects(Turtle.class).size() >= 1 && canMove) {
+		else if (getIntersectingObjects(Turtle.class).size() >= 1 && canMove)
 			move(-1,0);
-		}
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
-			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
+			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk())
 				waterDeath = true;
-			} else {
+			else
 				move(-1,0);
-			}
+
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			inter = (ArrayList<End>) getIntersectingObjects(End.class);
@@ -243,12 +217,34 @@ public class Frogger extends Actor {
 			end++;
 			resetFroggerLocation();
 		}
-		else if (getY()<413){
+		else if (getY()<413)
 			waterDeath = true;
-			//setX(300);
-			//setY(679.8+movement);
+	}
+
+
+
+	//helper functions [deathAction,resetFroggerLocation, incrementCarD(custom)]
+	private void resetFroggerLocation() {
+		setX(265);
+		setY(679.8 + movement);
+	}
+
+	private void incrementCarD(long now) {
+		if ((now) % 11 == 0)
+			carD++;
+	}
+
+	private void deathAction() {
+		resetFroggerLocation();
+		carD = 0;
+		setImage(new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true));
+		canMove = true;
+		if (points>50) {
+			points-=50;
+			changeScore = true;
 		}
 	}
+
 	public boolean getStop() {
 		return end==5;
 	}
@@ -265,6 +261,7 @@ public class Frogger extends Actor {
 		return false;
 		
 	}
-	
+
+
 
 }
