@@ -13,7 +13,6 @@ public class GameMenu extends Actor {
     public GameMenu(){
         BackgroundImage gameMenuImage = new BackgroundImage("file:src/main/resources/GameMenu1.png");
 
-
     }
 
     @Override

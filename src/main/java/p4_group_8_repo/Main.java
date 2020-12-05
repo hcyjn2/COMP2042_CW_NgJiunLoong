@@ -1,15 +1,13 @@
 package p4_group_8_repo;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import p4_group_8_repo.ui_components.GameMenu;
+import p4_group_8_repo.ui_components.BackToMenuButton;
+import p4_group_8_repo.ui_components.Button;
 import p4_group_8_repo.ui_components.MusicButton;
 
 public class Main extends Application {
@@ -28,15 +26,19 @@ public class Main extends Application {
 
 		backgroundStage = new MyStage();
 		MusicButton musicButton = new MusicButton(520,755, backgroundStage);
+		BackToMenuButton backToMenuButton = new BackToMenuButton(10,755,backgroundStage);
 		Scene scene  = new Scene(backgroundStage,566,800);
 		//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 
 		BackgroundImage backgroundImage = new BackgroundImage("file:src/main/resources/FroggerGameBackDrop.png");
-	    
+		BackgroundImage gameMenuImage = new BackgroundImage("file:src/main/resources/GameMenu1.png");
+		BackgroundImage aboutScreenImage = new BackgroundImage("file:src/main/resources/AboutScreen.png");
+
 		backgroundStage.add(backgroundImage);
 		backgroundStage.add(musicButton);
+		backgroundStage.add(backToMenuButton);
 
 		backgroundStage.add(new Log("file:src/main/resources/log3.png", 150, 0, 166, 0.75));
 		backgroundStage.add(new Log("file:src/main/resources/log3.png", 150, 220, 166, 0.75));
@@ -98,51 +100,95 @@ public class Main extends Application {
 		//background.add(obstacle1);
 		//background.add(obstacle2);
 
-		backgroundStage.start();
+		Button startButton = new Button("file:src/main/resources/start.png", -28, 310);
+		Button aboutButton = new Button("file:src/main/resources/about.png", -28, 430);
+		Button exitButton = new Button("file:src/main/resources/exit.png", -28, 530);
+		Button backButton = new Button("file:src/main/resources/back.png", -28, 530);
+
+		backgroundStage.add(gameMenuImage);
+		backgroundStage.add(startButton);
+		backgroundStage.add(aboutButton);
+		backgroundStage.add(exitButton);
+
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		start();
-	}
-	public void createTimer() {
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-            	if (frogger.changeScore())
-            		setNumber(frogger.getPoints());
 
-            	if (frogger.getStop()) {
-            		System.out.print("STOP:");
-            		backgroundStage.stopMusic();
-            		stop();
-            		backgroundStage.stop();
-            		Alert alert = new Alert(AlertType.INFORMATION);
-            		alert.setTitle("You Have Won The Game!");
-            		alert.setHeaderText("Your High Score: "+ frogger.getPoints()+"!");
-            		alert.setContentText("Highest Possible Score: 800");
-            		alert.show();
-            	}
-            }
-        };
-    }
+		startButton.setOnMouseClicked(event -> {
+			backgroundStage.remove(gameMenuImage);
+			backgroundStage.remove(startButton);
+			backgroundStage.remove(aboutButton);
+			backgroundStage.remove(exitButton);
+			//start asset timer
+			backgroundStage.start();
+			//score and music start
+			start();
+		});
+
+		aboutButton.setOnMouseClicked(event -> {
+			backgroundStage.remove(gameMenuImage);
+			backgroundStage.remove(startButton);
+			backgroundStage.remove(aboutButton);
+			backgroundStage.remove(exitButton);
+			backgroundStage.add(aboutScreenImage);
+			backgroundStage.add(backButton);
+		});
+
+		backButton.setOnMouseClicked(event -> {
+			backgroundStage.remove(aboutScreenImage);
+			backgroundStage.remove(backButton);
+			backgroundStage.add(gameMenuImage);
+			backgroundStage.add(startButton);
+			backgroundStage.add(aboutButton);
+			backgroundStage.add(exitButton);
+		});
+
+		exitButton.setOnMouseClicked(event -> System.exit(0));
+
+	}
+
+	public void createTimer(){
+		timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				if (frogger.changeScore())
+					setNumber(frogger.getPoints());
+
+				if (frogger.getStop()) {
+					System.out.print("STOP:");
+					backgroundStage.stopMusic();
+					stop();
+					backgroundStage.stop();
+					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setTitle("You Have Won The Game!");
+					alert.setHeaderText("Your High Score: " + frogger.getPoints() + "!");
+					alert.setContentText("Highest Possible Score: 800");
+					alert.show();
+				}
+			}
+		};
+	}
 
 	public void start() {
 		backgroundStage.playMusic();
-    	createTimer();
-        timer.start();
-    }
+		createTimer();
+		timer.start();
+	}
+
+	public void setNumber(int n) {
+		int shift = 0;
+		while (n > 0) {
+			int d = n / 10;
+			int k = n - d * 10;
+			n = d;
+			backgroundStage.add(new Digit(k, 30, 532 - shift, 33));
+			shift+=27;
+		}
+	}
 
     public void stop() {
         timer.stop();
     }
-    
-    public void setNumber(int n) {
-    	int shift = 0;
-    	while (n > 0) {
-    		  int d = n / 10;
-    		  int k = n - d * 10;
-    		  n = d;
-    		  backgroundStage.add(new Digit(k, 30, 532 - shift, 33));
-    		  shift+=27;
-    		}
-    }
+
+
+
 }

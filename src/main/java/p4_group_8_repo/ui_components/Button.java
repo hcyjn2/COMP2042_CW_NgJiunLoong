@@ -14,19 +14,25 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import p4_group_8_repo.Actor;
 
-public abstract class Button extends Actor {
+public class Button extends Actor {
 
-    public Button(String imageURL){
+    public Button(String imageURL, int x, int y){
         Image image = new Image(imageURL, 617, 262, true, true);
         setImage(image);
+        setX(x);
+        setY(y);
 
-        DropShadow dropShadow = new DropShadow(25, Color.LIGHTGREEN);
-        dropShadow.setInput(new Glow());
 
-        setOnMousePressed(event -> setEffect(dropShadow));
+        DropShadow dropShadowGreen = new DropShadow(25, Color.LIGHTGREEN);
+        dropShadowGreen.setInput(new Glow());
+        DropShadow dropShadowWhite = new DropShadow(25, Color.WHITE);
+        dropShadowWhite.setInput(new Glow());
+
+        setOnMouseEntered(event -> setEffect(dropShadowWhite));
+        setOnMouseExited(event -> setEffect(null));
+        setOnMousePressed(event -> setEffect(dropShadowGreen));
         setOnMouseReleased(event -> setEffect(null));
 
-        setOnMouseClicked(event -> ButtonAction());
     }
 
 
@@ -35,7 +41,6 @@ public abstract class Button extends Actor {
 
     }
 
-    abstract void ButtonAction();
 }
 
 //    private Text text;
