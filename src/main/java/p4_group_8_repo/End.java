@@ -3,7 +3,8 @@ package p4_group_8_repo;
 import javafx.scene.image.Image;
 
 public class End extends Actor{
-	boolean activated = false;
+
+	private boolean activated = false;
 
 	@Override
 	public void act(long now) {
@@ -20,6 +21,11 @@ public class End extends Actor{
 	public void setEnd() {
 		setImage(new Image("file:src/main/resources/FrogEnd.png", 70, 58, true, true));
 		activated = true;
+	}
+
+	public void deactivate(){
+		setImage(new Image("file:src/main/resources/End.png", 60, 60, true, true));
+		activated = false;
 	}
 	
 	public boolean isActivated() {

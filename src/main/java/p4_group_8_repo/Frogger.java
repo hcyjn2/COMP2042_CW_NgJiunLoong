@@ -19,8 +19,13 @@ public class Frogger extends Actor {
 	Image movingLeft;
 	Image movingDown;
 	Image movingRight;
-	int points = 0;
-	int end = 0;
+	private int points = 0;
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	private int end = 0;
 	private boolean switchImage = false;
 	boolean canMove = true;
 	double movement = 13.3333333*2;
@@ -29,7 +34,7 @@ public class Frogger extends Actor {
 	boolean carDeath = false;
 	boolean waterDeath = false;
 	boolean stop = false;
-	boolean changeScore = false;
+	public boolean changeScore = false;
 	int carD = 0;
 	double previousY = 800;
 	ArrayList<End> inter = new ArrayList<End>();
@@ -107,7 +112,7 @@ public class Frogger extends Actor {
 					if (getY() < previousY) {
 						changeScore = true;
 						previousY = getY();
-						points+=10;
+						points+=1;
 					}
 					move(0, -movement);
 					setImage(facingUp);
@@ -208,11 +213,11 @@ public class Frogger extends Actor {
 			inter = (ArrayList<End>) getIntersectingObjects(End.class);
 			if (getIntersectingObjects(End.class).get(0).isActivated()) {
 				end--;
-				points-=50;
+				points-=10;
 			}
-			points+=50;
+			points+=10;
 			changeScore = true;
-			previousY =800;
+			previousY = 800;
 			getIntersectingObjects(End.class).get(0).setEnd();
 			end++;
 			resetFroggerLocation();
@@ -239,8 +244,8 @@ public class Frogger extends Actor {
 		carD = 0;
 		setImage(new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true));
 		canMove = true;
-		if (points>50) {
-			points-=50;
+		if (points>10) {
+			points-=10;
 			changeScore = true;
 		}
 	}
