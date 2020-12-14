@@ -24,6 +24,7 @@ public class BackToMenuButton extends Actor{
         setOnMousePressed(event -> {
             myStage.stop();
             myStage.stopMusic();
+
         });
 
         setOnMouseReleased(event -> setEffect(null));

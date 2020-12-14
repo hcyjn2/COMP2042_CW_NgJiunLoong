@@ -15,6 +15,7 @@ public class Main extends Application {
 	MyStage backgroundStage;
 	Frogger frogger;
 	private int currentLevel = 1;
+	private int score = 0;
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -23,34 +24,21 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		//game window is fixed so the aspect ratio / game asset will not look weird
 		primaryStage.setResizable(false);
-
 		backgroundStage = new MyStage();
-		frogger = new Frogger("file:src/main/resources/froggerUp.png");
-		MusicButton musicButton = new MusicButton(520,755, backgroundStage);
-		BackToMenuButton backToMenuButton = new BackToMenuButton(10,755,backgroundStage);
-		Scene scene  = new Scene(backgroundStage,566,800);
-		//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
-		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
-		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
+		frogger = new Frogger("file:src/main/resources/froggerUp.png",score);
 
-		BackgroundImage backgroundImage = new BackgroundImage("file:src/main/resources/FroggerGameBackDrop.png");
+		Scene scene  = new Scene(backgroundStage,566,800);
 		BackgroundImage gameMenuImage = new BackgroundImage("file:src/main/resources/GameMenu1.png");
 		BackgroundImage aboutScreenImage = new BackgroundImage("file:src/main/resources/AboutScreen.png");
-
-		backgroundStage.add(backgroundImage);
-		backgroundStage.add(musicButton);
-		backgroundStage.add(backToMenuButton);
-
-		//return a frogger object for score calculating
-		backgroundStage.generateLevel(currentLevel);
-
-		backgroundStage.add(frogger);
-		backgroundStage.add(new Digit(0, 30, 532, 33));
-
 		Button startButton = new Button("file:src/main/resources/start.png", -28, 310);
 		Button aboutButton = new Button("file:src/main/resources/about.png", -28, 430);
 		Button exitButton = new Button("file:src/main/resources/exit.png", -28, 530);
 		Button backButton = new Button("file:src/main/resources/back.png", -28, 530);
+
+		backgroundStage.generateLevel(currentLevel);
+
+		backgroundStage.add(frogger);
+		backgroundStage.add(new Digit(0, 30, 532, 33));
 
 		backgroundStage.add(gameMenuImage);
 		backgroundStage.add(startButton);
@@ -78,6 +66,7 @@ public class Main extends Application {
 			backgroundStage.remove(exitButton);
 			backgroundStage.add(aboutScreenImage);
 			backgroundStage.add(backButton);
+
 		});
 
 		backButton.setOnMouseClicked(event -> {
@@ -95,17 +84,18 @@ public class Main extends Application {
 
 	public void createTimer(){
 		timer = new AnimationTimer() {
-			int temp = 0;
 			@Override
 			public void handle(long now) {
 				if(frogger.getStop()){
 					currentLevel++;
-					frogger = new Frogger("file:src/main/resources/froggerUp.png");
 					backgroundStage.generateLevel(currentLevel);
+					frogger = new Frogger("file:src/main/resources/froggerUp.png", score);
+					backgroundStage.add(frogger);
 				}
 
 				if (frogger.changeScore()){
 					setNumber(frogger.getPoints());
+					score = frogger.getPoints();
 				}
 
 				if (currentLevel == 10) {

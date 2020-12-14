@@ -19,7 +19,7 @@ public class Frogger extends Actor {
 	Image movingLeft;
 	Image movingDown;
 	Image movingRight;
-	private int points = 0;
+	private int points;
 
 	public void setEnd(int end) {
 		this.end = end;
@@ -40,7 +40,8 @@ public class Frogger extends Actor {
 	ArrayList<End> inter = new ArrayList<End>();
 
 	//constructor
-	public Frogger(String imageLink) {
+	public Frogger(String imageLink, int score) {
+		this.points = score;
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		resetFroggerLocation();
 		facingUp = new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true);
@@ -53,88 +54,83 @@ public class Frogger extends Actor {
 		movingRight = new Image("file:src/main/resources/froggerRightJump.png", imgSize, imgSize, true, true);
 
 		//check if Frogger is facing correct direction, if yes then move else change direction
-		setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event){
-				if (canMove) {
-					if (switchImage) {
-						if (event.getCode() == KeyCode.W) {
-							move(0, -movement);
-							changeScore = false;
-							setImage(facingUp);
-							switchImage = false;
-						}
-						else if (event.getCode() == KeyCode.A) {
-							move(-movementX, 0);
-							setImage(facingLeft);
-							switchImage = false;
-						}
-						else if (event.getCode() == KeyCode.S) {
-							move(0, movement);
-							setImage(facingDown);
-							switchImage = false;
-						}
-						else if (event.getCode() == KeyCode.D) {
-							move(movementX, 0);
-							setImage(facingRight);
-							switchImage = false;
-						}
-					}
-
-					else if (event.getCode() == KeyCode.W) {
+		setOnKeyPressed(event -> {
+			if (canMove) {
+				if (switchImage) {
+					if (event.getCode() == KeyCode.W) {
 						move(0, -movement);
-						setImage(movingUp);
-						switchImage = true;
+						changeScore = false;
+						setImage(facingUp);
+						switchImage = false;
 					}
 					else if (event.getCode() == KeyCode.A) {
 						move(-movementX, 0);
-						setImage(movingLeft);
-						switchImage = true;
+						setImage(facingLeft);
+						switchImage = false;
 					}
 					else if (event.getCode() == KeyCode.S) {
 						move(0, movement);
-						setImage(movingDown);
-						switchImage = true;
+						setImage(facingDown);
+						switchImage = false;
 					}
 					else if (event.getCode() == KeyCode.D) {
 						move(movementX, 0);
-						setImage(movingRight);
-						switchImage = true;
+						setImage(facingRight);
+						switchImage = false;
 					}
 				}
 
-			}
-		});
-
-		setOnKeyReleased(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event) {
-				if (canMove) {
-					if (event.getCode() == KeyCode.W) {
-					if (getY() < previousY) {
-						changeScore = true;
-						previousY = getY();
-						points+=1;
-					}
+				else if (event.getCode() == KeyCode.W) {
 					move(0, -movement);
-					setImage(facingUp);
-					switchImage = false;
+					setImage(movingUp);
+					switchImage = true;
 				}
 				else if (event.getCode() == KeyCode.A) {
 					move(-movementX, 0);
-					setImage(facingLeft);
-					switchImage = false;
+					setImage(movingLeft);
+					switchImage = true;
 				}
 				else if (event.getCode() == KeyCode.S) {
 					move(0, movement);
-					setImage(facingDown);
-					switchImage = false;
+					setImage(movingDown);
+					switchImage = true;
 				}
 				else if (event.getCode() == KeyCode.D) {
 					move(movementX, 0);
-					setImage(facingRight);
-					switchImage = false;
-				}}
+					setImage(movingRight);
+					switchImage = true;
+				}
 			}
-			
+
+		});
+
+		setOnKeyReleased(event -> {
+			if (canMove) {
+				if (event.getCode() == KeyCode.W) {
+				if (getY() < previousY) {
+					changeScore = true;
+					previousY = getY();
+					points+=1;
+				}
+				move(0, -movement);
+				setImage(facingUp);
+				switchImage = false;
+			}
+			else if (event.getCode() == KeyCode.A) {
+				move(-movementX, 0);
+				setImage(facingLeft);
+				switchImage = false;
+			}
+			else if (event.getCode() == KeyCode.S) {
+				move(0, movement);
+				setImage(facingDown);
+				switchImage = false;
+			}
+			else if (event.getCode() == KeyCode.D) {
+				move(movementX, 0);
+				setImage(facingRight);
+				switchImage = false;
+			}}
 		});
 	}
 
