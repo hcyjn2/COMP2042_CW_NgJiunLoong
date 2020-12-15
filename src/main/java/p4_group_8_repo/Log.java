@@ -8,10 +8,8 @@ public class Log extends Actor {
 	@Override
 	public void act(long now) {
 		move(speed , 0);
-		if (getX() > 600 && speed > 0)
-			setX(-180);
-		if (getX() < -300 && speed < 0)
-			setX(700);
+
+		resetLogLocation();
 	}
 
 	//constructor
@@ -22,7 +20,17 @@ public class Log extends Actor {
 		speed = s;
 	}
 
+	//---------------------------------------------------------Methods----------------------------------------------------------------------
+	private void resetLogLocation() {
+		if (getX() > 600 && speed > 0)
+			setX(-180);
+		if (getX() < -300 && speed < 0)
+			setX(700);
+	}
+
+
 	public boolean getLeft() {
 		return speed < 0;
 	}
+	//--------------------------------------------------------/Methods----------------------------------------------------------------------
 }

@@ -12,22 +12,11 @@ public class Turtle extends Actor{
 	@Override
 	public void act(long now) {
 
-				if (now/900000000  % 3 ==0) {
-					setImage(turtle2);
-				}
-				else if (now/900000000 % 3 == 1) {
-					setImage(turtle1);
-				}
-				else if (now/900000000 %3 == 2) {
-					setImage(turtle3);
-				}
-			
+		updateTurtleImage(now);
+
 		move(speed , 0);
 
-		if (getX() > 600 && speed>0)
-			setX(-200);
-		if (getX() < -75 && speed<0)
-			setX(600);
+		resetTurtleLocation();
 	}
 
 	//constructor
@@ -40,4 +29,27 @@ public class Turtle extends Actor{
 		speed = s;
 		setImage(turtle2);
 	}
+
+	//---------------------------------------------------------Methods----------------------------------------------------------------------
+	private void resetTurtleLocation() {
+		if (getX() > 600 && speed>0)
+			setX(-200);
+		if (getX() < -75 && speed<0)
+			setX(600);
+	}
+
+	private void updateTurtleImage(long now) {
+		if (now /900000000  % 3 ==0) {
+			setImage(turtle2);
+		}
+		else if (now /900000000 % 3 == 1) {
+			setImage(turtle1);
+		}
+		else if (now /900000000 %3 == 2) {
+			setImage(turtle3);
+		}
+	}
+	//--------------------------------------------------------/Methods----------------------------------------------------------------------
+
+
 }

@@ -9,18 +9,15 @@ import p4_group_8_repo.ui_components.BackToMenuButton;
 import p4_group_8_repo.ui_components.MusicButton;
 
 public class MyStage extends World{
-
 	private boolean isMusicPlaying;
 	MediaPlayer mediaPlayer;
 	MusicButton musicButton = new MusicButton(520,755, this);
 
 	@Override
-	public void act(long now) {
+	public void act(long now) {}
 
-	}
-
+	//---------------------------------------------------------Methods----------------------------------------------------------------------
 	public void generateLevel(int level){
-
 		if(level == 1){
 			this.getChildren().clear();
 			this.add(new BackgroundImage("file:src/main/resources/FroggerGameBackDrop" + level + ".png"));
@@ -285,15 +282,6 @@ public class MyStage extends World{
 		}
 	}
 
-	private void generateEnds() {
-		this.add(new End(10, 96));
-		this.add(new End(130, 96));
-		this.add(new End(250, 96));
-		this.add(new End(371, 96));
-		this.add(new End(493, 96));
-	}
-
-
 	public void playMusic() {
 		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
@@ -312,4 +300,12 @@ public class MyStage extends World{
 		return isMusicPlaying;
 	}
 
+	private void generateEnds() {
+		this.add(new End(10, 96));
+		this.add(new End(130, 96));
+		this.add(new End(250, 96));
+		this.add(new End(371, 96));
+		this.add(new End(493, 96));
+	}
+	//--------------------------------------------------------/Methods----------------------------------------------------------------------
 }

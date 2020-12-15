@@ -9,6 +9,7 @@ import p4_group_8_repo.MyStage;
 
 public class MusicButton extends Actor {
 
+    //constructor
     public MusicButton(int x, int y, MyStage myStage){
 
         Image playAudio = new Image("file:src/main/resources/play.png",35, 35, true, true);

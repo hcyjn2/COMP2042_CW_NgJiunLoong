@@ -10,7 +10,7 @@ import javafx.scene.input.KeyEvent;
 
 
 public class Frogger extends Actor {
-	//initialize variables
+	//-------------------------------------------------------Variables Initialization-------------------------------------------------------
 	Image facingUp;
 	Image facingLeft;
 	Image facingDown;
@@ -20,11 +20,6 @@ public class Frogger extends Actor {
 	Image movingDown;
 	Image movingRight;
 	private int points;
-
-	public void setEnd(int end) {
-		this.end = end;
-	}
-
 	private int end = 0;
 	private boolean switchImage = false;
 	boolean canMove = true;
@@ -37,7 +32,8 @@ public class Frogger extends Actor {
 	public boolean changeScore = false;
 	int carD = 0;
 	double previousY = 800;
-	ArrayList<End> inter = new ArrayList<End>();
+	ArrayList<End> inter = new ArrayList<>();
+	//------------------------------------------------------/Variables Initialization-------------------------------------------------------
 
 	//constructor
 	public Frogger(String imageLink, int score) {
@@ -53,85 +49,7 @@ public class Frogger extends Actor {
 		movingDown = new Image("file:src/main/resources/froggerDownJump.png", imgSize, imgSize, true, true);
 		movingRight = new Image("file:src/main/resources/froggerRightJump.png", imgSize, imgSize, true, true);
 
-		//check if Frogger is facing correct direction, if yes then move else change direction
-		setOnKeyPressed(event -> {
-			if (canMove) {
-				if (switchImage) {
-					if (event.getCode() == KeyCode.W) {
-						move(0, -movement);
-						changeScore = false;
-						setImage(facingUp);
-						switchImage = false;
-					}
-					else if (event.getCode() == KeyCode.A) {
-						move(-movementX, 0);
-						setImage(facingLeft);
-						switchImage = false;
-					}
-					else if (event.getCode() == KeyCode.S) {
-						move(0, movement);
-						setImage(facingDown);
-						switchImage = false;
-					}
-					else if (event.getCode() == KeyCode.D) {
-						move(movementX, 0);
-						setImage(facingRight);
-						switchImage = false;
-					}
-				}
-
-				else if (event.getCode() == KeyCode.W) {
-					move(0, -movement);
-					setImage(movingUp);
-					switchImage = true;
-				}
-				else if (event.getCode() == KeyCode.A) {
-					move(-movementX, 0);
-					setImage(movingLeft);
-					switchImage = true;
-				}
-				else if (event.getCode() == KeyCode.S) {
-					move(0, movement);
-					setImage(movingDown);
-					switchImage = true;
-				}
-				else if (event.getCode() == KeyCode.D) {
-					move(movementX, 0);
-					setImage(movingRight);
-					switchImage = true;
-				}
-			}
-
-		});
-
-		setOnKeyReleased(event -> {
-			if (canMove) {
-				if (event.getCode() == KeyCode.W) {
-				if (getY() < previousY) {
-					changeScore = true;
-					previousY = getY();
-					points+=1;
-				}
-				move(0, -movement);
-				setImage(facingUp);
-				switchImage = false;
-			}
-			else if (event.getCode() == KeyCode.A) {
-				move(-movementX, 0);
-				setImage(facingLeft);
-				switchImage = false;
-			}
-			else if (event.getCode() == KeyCode.S) {
-				move(0, movement);
-				setImage(facingDown);
-				switchImage = false;
-			}
-			else if (event.getCode() == KeyCode.D) {
-				move(movementX, 0);
-				setImage(facingRight);
-				switchImage = false;
-			}}
-		});
+		froggerMovementControl();
 	}
 
 	@Override
@@ -224,7 +142,89 @@ public class Frogger extends Actor {
 
 
 
-	//helper functions [deathAction,resetFroggerLocation, incrementCarD(custom)]
+	//---------------------------------------------------------Methods----------------------------------------------------------------------
+
+	private void froggerMovementControl() {
+		setOnKeyPressed(event -> {
+			if (canMove) {
+				if (switchImage) {
+					if (event.getCode() == KeyCode.W) {
+						move(0, -movement);
+						changeScore = false;
+						setImage(facingUp);
+						switchImage = false;
+					}
+					else if (event.getCode() == KeyCode.A) {
+						move(-movementX, 0);
+						setImage(facingLeft);
+						switchImage = false;
+					}
+					else if (event.getCode() == KeyCode.S) {
+						move(0, movement);
+						setImage(facingDown);
+						switchImage = false;
+					}
+					else if (event.getCode() == KeyCode.D) {
+						move(movementX, 0);
+						setImage(facingRight);
+						switchImage = false;
+					}
+				}
+
+				else if (event.getCode() == KeyCode.W) {
+					move(0, -movement);
+					setImage(movingUp);
+					switchImage = true;
+				}
+				else if (event.getCode() == KeyCode.A) {
+					move(-movementX, 0);
+					setImage(movingLeft);
+					switchImage = true;
+				}
+				else if (event.getCode() == KeyCode.S) {
+					move(0, movement);
+					setImage(movingDown);
+					switchImage = true;
+				}
+				else if (event.getCode() == KeyCode.D) {
+					move(movementX, 0);
+					setImage(movingRight);
+					switchImage = true;
+				}
+			}
+
+		});
+
+		setOnKeyReleased(event -> {
+			if (canMove) {
+				if (event.getCode() == KeyCode.W) {
+					if (getY() < previousY) {
+						changeScore = true;
+						previousY = getY();
+						points+=1;
+					}
+					move(0, -movement);
+					setImage(facingUp);
+					switchImage = false;
+				}
+				else if (event.getCode() == KeyCode.A) {
+					move(-movementX, 0);
+					setImage(facingLeft);
+					switchImage = false;
+				}
+				else if (event.getCode() == KeyCode.S) {
+					move(0, movement);
+					setImage(facingDown);
+					switchImage = false;
+				}
+				else if (event.getCode() == KeyCode.D) {
+					move(movementX, 0);
+					setImage(facingRight);
+					switchImage = false;
+				}}
+		});
+	}
+
 	private void resetFroggerLocation() {
 		setX(265);
 		setY(679.8 + movement);
@@ -262,7 +262,7 @@ public class Frogger extends Actor {
 		return false;
 		
 	}
-
+	//--------------------------------------------------------/Methods----------------------------------------------------------------------
 
 
 }

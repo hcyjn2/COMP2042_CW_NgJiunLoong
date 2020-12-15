@@ -1,72 +1,59 @@
 package p4_group_8_repo;
 
+import javafx.animation.AnimationTimer;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
-
 
 public abstract class World extends Pane {
     private AnimationTimer timer;
-    
+
+    //constructor
     public World() {
     	
-    	sceneProperty().addListener(new ChangeListener<Scene>() {
+    	sceneProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                newValue.setOnKeyReleased(event -> {
+                    if(getOnKeyReleased() != null)
+                        getOnKeyReleased().handle(event);
 
-			@Override
-			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
-				if (newValue != null) {
-					newValue.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                    List<Actor> myActors = getObjects(Actor.class);
 
-						@Override
-						public void handle(KeyEvent event) {
-							if(getOnKeyReleased() != null) 
-								getOnKeyReleased().handle(event);
-							List<Actor> myActors = getObjects(Actor.class);
-							for (Actor anActor: myActors) {
-								if (anActor.getOnKeyReleased() != null) {
-									anActor.getOnKeyReleased().handle(event);
-								}
-							}
-						}
-						
-					});
-					
-					newValue.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                    for (Actor anActor: myActors) {
+                        if (anActor.getOnKeyReleased() != null)
+                            anActor.getOnKeyReleased().handle(event);
+                    }
+                });
 
-						@Override
-						public void handle(KeyEvent event) {
-							if(getOnKeyPressed() != null) 
-								getOnKeyPressed().handle(event);
-							List<Actor> myActors = getObjects(Actor.class);
-							for (Actor anActor: myActors) {
-								if (anActor.getOnKeyPressed() != null) {
-									anActor.getOnKeyPressed().handle(event);
-								}
-							}
-						}
-						
-					});
-				}
-				
-			}
-    		
-		});
+                newValue.setOnKeyPressed(event -> {
+                    if(getOnKeyPressed() != null)
+                        getOnKeyPressed().handle(event);
+
+                    List<Actor> myActors = getObjects(Actor.class);
+
+                    for (Actor anActor: myActors) {
+                        if (anActor.getOnKeyPressed() != null)
+                            anActor.getOnKeyPressed().handle(event);
+                    }
+                });
+
+            }
+
+        });
     }
 
+
+
+    //---------------------------------------------------------Methods----------------------------------------------------------------------
     public void createTimer() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 act(now);
+
                 List<Actor> actors = getObjects(Actor.class);
                 
                 for (Actor anActor: actors) {
@@ -77,25 +64,8 @@ public abstract class World extends Pane {
         };
     }
 
-    public void start() {
-    	createTimer();
-        timer.start();
-    }
-
-    public void stop() {
-        timer.stop();
-    }
-    
-    public void add(Actor actor) {
-        getChildren().add(actor);
-    }
-
-    public void remove(Actor actor) {
-        getChildren().remove(actor);
-    }
-
     public <ActorClass extends Actor> List<ActorClass> getObjects(Class<ActorClass> cls) {
-        ArrayList<ActorClass> someArray = new ArrayList<ActorClass>();
+        ArrayList<ActorClass> someArray = new ArrayList<>();
         for (Node n: getChildren()) {
             if (cls.isInstance(n)) {
                 someArray.add((ActorClass)n);
@@ -104,5 +74,27 @@ public abstract class World extends Pane {
         return someArray;
     }
 
+    public void start() {
+    	createTimer();
+        timer.start();
+    }
+
+    public void stop() {
+        timer.stop();
+    }
+
+    public void add(Actor actor) {
+        getChildren().add(actor);
+    }
+
+    public void remove(Actor actor) {
+        getChildren().remove(actor);
+    }
+
     public abstract void act(long now);
+    //--------------------------------------------------------/Methods----------------------------------------------------------------------
+
+
+
+
 }

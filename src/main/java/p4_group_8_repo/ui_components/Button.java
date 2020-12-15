@@ -1,21 +1,14 @@
 package p4_group_8_repo.ui_components;
 
-import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import p4_group_8_repo.Actor;
 
 public class Button extends Actor {
 
+    //constructor
     public Button(String imageURL, int x, int y){
         Image image = new Image(imageURL, 617, 262, true, true);
         setImage(image);
