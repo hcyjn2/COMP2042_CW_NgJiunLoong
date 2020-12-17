@@ -1,13 +1,15 @@
-package p4_group_8_repo;
-
-import java.io.File;
+package comp2042_cw;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
-import p4_group_8_repo.ui_components.BackToMenuButton;
-import p4_group_8_repo.ui_components.MusicButton;
+import comp2042_cw.ui_components.MusicButton;
 
+import java.io.File;
+
+/**
+ * This is the MyStage class where it inherits from abstract class World.
+ * It handles animation, spawn game assets based on game level and game background music as well.
+ */
 public class MyStage extends World{
 	private boolean isMusicPlaying;
 	MediaPlayer mediaPlayer;
@@ -17,8 +19,14 @@ public class MyStage extends World{
 	public void act(long now) {}
 
 	//---------------------------------------------------------Methods----------------------------------------------------------------------
+
+	/**
+	 * This method generates game level(Log, Turtle, Car, Truck) based on the game level.
+	 * @param level	   This parameter is the current game level.
+	 */
 	public void generateLevel(int level){
 		if(level == 1){
+			//clear the previous level before generating the new one
 			this.getChildren().clear();
 			this.add(new BackgroundImage("file:src/main/resources/FroggerGameBackDrop" + level + ".png"));
 			this.add(musicButton);
@@ -282,6 +290,9 @@ public class MyStage extends World{
 		}
 	}
 
+	/**
+	 * This method plays game background music.
+	 */
 	public void playMusic() {
 		String musicFile = "src/main/resources/Frogger Main Song Theme (loop).mp3";
 		Media sound = new Media(new File(musicFile).toURI().toString());
@@ -291,15 +302,20 @@ public class MyStage extends World{
 		isMusicPlaying = true;
 	}
 
+	/**
+	 * This method stops game background music.
+	 */
 	public void stopMusic() {
 		mediaPlayer.stop();
 		isMusicPlaying = false;
 	}
 
+	//return true if the background music is playing.
 	public boolean isMusicPlaying() {
 		return isMusicPlaying;
 	}
 
+	//generates all End Portals.
 	private void generateEnds() {
 		this.add(new End(10, 96));
 		this.add(new End(130, 96));

@@ -12,12 +12,21 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.junit.jupiter:junit-jupiter-api:5.6.3'
 }
+
+test{
+    useJUnitPlatform()
+}
+
+//tasks.withType(Test) {
+//    scanForTestClasses = false
+//    include "file:src/test/java/comp2042_cw/*Test.class"
+//}
 
 javafx {
     version = '15'
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media']
 }
 
-mainClassName = 'p4_group_8_repo.Main'
+mainClassName = 'comp2042_cw.Main'

@@ -1,7 +1,10 @@
-package p4_group_8_repo;
+package comp2042_cw;
 
 import javafx.scene.image.Image;
 
+/**
+ * This is the Log class where it will create a Log for Frogger to step over in the game.
+ */
 public class Log extends Actor {
 	private double speed;
 
@@ -12,7 +15,15 @@ public class Log extends Actor {
 		resetLogLocation();
 	}
 
-	//constructor
+
+	/**
+	 * This is the Log class constructor.
+	 * @param imageLink Image path
+	 * @param size Size of the log
+	 * @param xpos Log X-position
+	 * @param ypos Log Y-position
+	 * @param s Speed of the log
+	 */
 	public Log(String imageLink, int size, int xpos, int ypos, double s) {
 		setImage(new Image(imageLink, size,size, true, true));
 		setX(xpos);
@@ -21,6 +32,10 @@ public class Log extends Actor {
 	}
 
 	//---------------------------------------------------------Methods----------------------------------------------------------------------
+
+	/**
+	 * This method will reset the Log location if it reach the end of the game window.
+	 */
 	private void resetLogLocation() {
 		if (getX() > 600 && speed > 0)
 			setX(-180);
@@ -28,7 +43,7 @@ public class Log extends Actor {
 			setX(700);
 	}
 
-
+	//return true if the log is moving left.
 	public boolean getLeft() {
 		return speed < 0;
 	}

@@ -1,14 +1,15 @@
-package p4_group_8_repo;
+package comp2042_cw;
 
 import java.util.ArrayList;
 
-import javafx.event.EventHandler;
-
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 
+/**
+ * This is the Frogger class, the main character of the game.
+ * This class handles a lot of different activities/actions that are associated with Frogger like movement of Frogger, what happen if Frogger die, so on and so forth.
+ */
 public class Frogger extends Actor {
 	//-------------------------------------------------------Variables Initialization-------------------------------------------------------
 	Image facingUp;
@@ -35,7 +36,11 @@ public class Frogger extends Actor {
 	ArrayList<End> inter = new ArrayList<>();
 	//------------------------------------------------------/Variables Initialization-------------------------------------------------------
 
-	//constructor
+	/**
+	 * This is the Frogger class constructor.
+	 * @param imageLink Image path
+	 * @param score Game score
+	 */
 	public Frogger(String imageLink, int score) {
 		this.points = score;
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
@@ -56,12 +61,17 @@ public class Frogger extends Actor {
 	public void act(long now) {
 		int bounds = 0;
 
+		//if the Frogger is out of game map, then reset its location.
 		if (getY()<0 || getY()>734)
 			resetFroggerLocation();
 
+		//if the Frogger is at the edge of screen(left/right) and still going towards it, then move it backwards.
 		if (getX()<0)
 			move(movement*2, 0);
+		if (getX()>600)
+			move(-movement*2, 0);
 
+		//if the Frogger hit by a car, it will trigger the death scene and death action.
 		if (carDeath) {
 			canMove = false;
 
@@ -79,6 +89,7 @@ public class Frogger extends Actor {
 			}
 		}
 
+		//if the Frogger fell into the river, it will trigger the death scene and death action.
 		if (waterDeath) {
 			canMove = false;
 
@@ -99,36 +110,37 @@ public class Frogger extends Actor {
 
 		}
 
-		if (getX()>600)
-			move(-movement*2, 0);
-
+		//check if the Frogger is hit by the car and set carDeath to true if yes.
 		if (getIntersectingObjects(Obstacle.class).size() >= 1)
 			carDeath = true;
 
-		if (getX() == 240 && getY() == 82)
-			stop = true;
-
+		//if the Frogger is standing on the Log, it will move along with the Log.
 		if (getIntersectingObjects(Log.class).size() >= 1 && canMove) {
 			if(getIntersectingObjects(Log.class).get(0).getLeft())
 				move(-2,0);
 			else
 				move (.75,0);
 		}
+		//if the Frogger is standing on the Turtle/WetTurtle, it will move along with the Log.
 		else if (getIntersectingObjects(Turtle.class).size() >= 1 && canMove)
 			move(-1,0);
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
+			//trigger death if the turtle had dove into the water and Frogger is on top of it.
 			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk())
 				waterDeath = true;
 			else
 				move(-1,0);
 
 		}
+		//if the Frogger reaches End Portal and activates it.
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			inter = (ArrayList<End>) getIntersectingObjects(End.class);
+			//if >1 End Portal is activated, it will decrease score when the Frogger die.
 			if (getIntersectingObjects(End.class).get(0).isActivated()) {
 				end--;
 				points-=10;
 			}
+			//add score if the End Portal is activated.
 			points+=10;
 			changeScore = true;
 			previousY = 800;
@@ -136,6 +148,7 @@ public class Frogger extends Actor {
 			end++;
 			resetFroggerLocation();
 		}
+		//trigger death if the Frogger stepped on the water.
 		else if (getY()<413)
 			waterDeath = true;
 	}
@@ -144,6 +157,9 @@ public class Frogger extends Actor {
 
 	//---------------------------------------------------------Methods----------------------------------------------------------------------
 
+	/**
+	 * This method control the movement of Frogger whenever a key is pressed.
+	 */
 	private void froggerMovementControl() {
 		setOnKeyPressed(event -> {
 			if (canMove) {
@@ -225,16 +241,26 @@ public class Frogger extends Actor {
 		});
 	}
 
+	/**
+	 * This method reset Frogger to the starting location.
+	 */
 	private void resetFroggerLocation() {
 		setX(265);
 		setY(679.8 + movement);
 	}
 
+	/**
+	 * This method trigger the next animation of the Frogger if death occurred.
+	 * @param now
+	 */
 	private void incrementCarD(long now) {
 		if ((now) % 11 == 0)
 			carD++;
 	}
 
+	/**
+	 * This method resets the Frogger location, carD and deducts the score.
+	 */
 	private void deathAction() {
 		resetFroggerLocation();
 		carD = 0;
@@ -246,14 +272,17 @@ public class Frogger extends Actor {
 		}
 	}
 
+	//return true if all End Portals are activated.
 	public boolean getStop() {
 		return end==5;
 	}
-	
+
+	//return current score.
 	public int getPoints() {
 		return points;
 	}
-	
+
+	//return true if score is chang-able else false.
 	public boolean changeScore() {
 		if (changeScore) {
 			changeScore = false;
