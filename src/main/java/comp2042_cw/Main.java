@@ -85,7 +85,6 @@ public class Main extends Application {
 			backgroundStage.remove(exitButton);
 			backgroundStage.add(aboutScreenImage);
 			backgroundStage.add(backButton);
-
 		});
 
 		//go back to the game menu.
