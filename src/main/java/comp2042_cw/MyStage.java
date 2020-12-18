@@ -13,7 +13,7 @@ import java.io.File;
 public class MyStage extends World{
 	private boolean isMusicPlaying;
 	MediaPlayer mediaPlayer;
-	MusicButton musicButton = new MusicButton(520,755, this);
+	MusicButton musicButton = new MusicButton(520,756, this);
 
 	@Override
 	public void act(long now) {}

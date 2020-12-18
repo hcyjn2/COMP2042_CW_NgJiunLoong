@@ -21,6 +21,7 @@ public class Frogger extends Actor {
 	Image movingDown;
 	Image movingRight;
 	private int points;
+	private int life;
 	private int end = 0;
 	private boolean switchImage = false;
 	boolean canMove = true;
@@ -41,8 +42,9 @@ public class Frogger extends Actor {
 	 * @param imageLink Image path
 	 * @param score Game score
 	 */
-	public Frogger(String imageLink, int score) {
+	public Frogger(String imageLink, int score, int life) {
 		this.points = score;
+		this.life = life;
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		resetFroggerLocation();
 		facingUp = new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true);
@@ -126,8 +128,9 @@ public class Frogger extends Actor {
 			move(-1,0);
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 			//trigger death if the turtle had dove into the water and Frogger is on top of it.
-			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk())
+			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()){
 				waterDeath = true;
+			}
 			else
 				move(-1,0);
 
@@ -148,9 +151,12 @@ public class Frogger extends Actor {
 			end++;
 			resetFroggerLocation();
 		}
+
 		//trigger death if the Frogger stepped on the water.
-		else if (getY()<413)
+		else if (getY()<413) {
 			waterDeath = true;
+		}
+
 	}
 
 
@@ -251,7 +257,7 @@ public class Frogger extends Actor {
 
 	/**
 	 * This method trigger the next animation of the Frogger if death occurred.
-	 * @param now
+	 * @param now Current game time
 	 */
 	private void incrementCarD(long now) {
 		if ((now) % 11 == 0)
@@ -262,6 +268,7 @@ public class Frogger extends Actor {
 	 * This method resets the Frogger location, carD and deducts the score.
 	 */
 	private void deathAction() {
+		life = life - 1;
 		resetFroggerLocation();
 		carD = 0;
 		setImage(new Image("file:src/main/resources/froggerUp.png", imgSize, imgSize, true, true));
@@ -282,6 +289,15 @@ public class Frogger extends Actor {
 		return points;
 	}
 
+	//return frogger life count.
+	public int getLife() {
+		return life;
+	}
+
+	public boolean isDead() {
+		return carDeath || waterDeath;
+	}
+
 	//return true if score is chang-able else false.
 	public boolean changeScore() {
 		if (changeScore) {
@@ -291,6 +307,8 @@ public class Frogger extends Actor {
 		return false;
 		
 	}
+
+
 	//--------------------------------------------------------/Methods----------------------------------------------------------------------
 
 
