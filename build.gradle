@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.junit.jupiter:junit-jupiter-api:5.6.3'
 }
 
 javafx {
@@ -20,4 +20,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media']
 }
 
-mainClassName = 'p4_group_8_repo.Main'
+mainClassName = 'comp2042_cw.Main'
