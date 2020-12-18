@@ -41,7 +41,7 @@ public class Main extends Application {
 		backgroundStage = new MyStage();
 		frogger = new Frogger("file:src/main/resources/froggerUp.png",score, froggerLife);
 		Scene scene  = new Scene(backgroundStage,566,800);
-		BackgroundImage gameMenuImage = new BackgroundImage("file:src/main/resources/GameMenu1.png");
+		BackgroundImage gameMenuImage = new BackgroundImage("file:src/main/resources/GameMenu.png");
 		BackgroundImage aboutScreenImage = new BackgroundImage("file:src/main/resources/AboutScreen.png");
 		Button startButton = new Button("file:src/main/resources/start.png", -28, 310);
 		Button aboutButton = new Button("file:src/main/resources/about.png", -28, 430);
