@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
  * It will change the digit images to represent the score.
  */
 public class Digit extends Actor{
-	Image image;
+	private Image image;
 
 	@Override
 	public void act(long now) {}

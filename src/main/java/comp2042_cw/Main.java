@@ -1,19 +1,16 @@
 package comp2042_cw;
 
+import comp2042_cw.ui_components.Button;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import comp2042_cw.ui_components.Button;
-
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;  // Import the IOException class to handle errors
 
 import java.io.File;
-import java.util.Optional;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -21,9 +18,9 @@ import java.util.Scanner;
  */
 public class Main extends Application {
 	//initialize variables
-	AnimationTimer timer;
-	MyStage backgroundStage;
-	Frogger frogger;
+	private AnimationTimer timer;
+	private MyStage backgroundStage;
+	private Frogger frogger;
 	private int froggerLife = 2;
 	private int currentLevel = 1;
 	private int score = 0;

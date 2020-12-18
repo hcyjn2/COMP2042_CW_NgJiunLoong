@@ -6,12 +6,11 @@ import javafx.scene.image.Image;
  * This is the Turtle class where it will create turtles for Frogger to step over in the game.
  */
 public class Turtle extends Actor{
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
+	private Image turtle1;
+	private Image turtle2;
+	private Image turtle3;
 	private int speed;
-	int i = 1;
-	boolean bool = true;
+
 	@Override
 	public void act(long now) {
 

@@ -12,8 +12,8 @@ import java.io.File;
  */
 public class MyStage extends World{
 	private boolean isMusicPlaying;
-	MediaPlayer mediaPlayer;
-	MusicButton musicButton = new MusicButton(520,756, this);
+	private MediaPlayer mediaPlayer;
+	private MusicButton musicButton = new MusicButton(520,756, this);
 
 	@Override
 	public void act(long now) {}
@@ -26,8 +26,9 @@ public class MyStage extends World{
 	 */
 	public void generateLevel(int level){
 		if(level == 1){
-			//clear the previous level before generating the new one
+			//clear the previous level game assets before generating the new one
 			this.getChildren().clear();
+
 			this.add(new BackgroundImage("file:src/main/resources/FroggerGameBackDrop" + level + ".png"));
 			this.add(musicButton);
 			this.add(new Log("file:src/main/resources/log3.png", 150, 0, 166, 0.75));

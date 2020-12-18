@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
  * It will change the digit images to represent the score.
  */
 public class Life extends Actor{
-    Image image;
+    private Image image;
 
     @Override
     public void act(long now) {}

@@ -7,14 +7,12 @@ import javafx.scene.image.Image;
  * There is a slight different with its not-wet counterpart, the wet turtles will dive into water from time to time where Frogger won't able to step on it at that status.
  */
 public class WetTurtle extends Actor{
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	Image turtle4;
+	private Image turtle1;
+	private Image turtle2;
+	private Image turtle3;
+	private Image turtle4;
 	final private int speed;
-	int i = 1;
-	boolean bool = true;
-	boolean sunk = false;
+	private boolean sunk = false;
 	@Override
 	public void act(long now) {
 

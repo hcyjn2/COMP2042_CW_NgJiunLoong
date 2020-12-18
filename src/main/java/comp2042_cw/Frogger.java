@@ -12,28 +12,28 @@ import javafx.scene.input.KeyCode;
  */
 public class Frogger extends Actor {
 	//-------------------------------------------------------Variables Initialization-------------------------------------------------------
-	Image facingUp;
-	Image facingLeft;
-	Image facingDown;
-	Image facingRight;
-	Image movingUp;
-	Image movingLeft;
-	Image movingDown;
-	Image movingRight;
+	private Image facingUp;
+	private Image facingLeft;
+	private Image facingDown;
+	private Image facingRight;
+	private Image movingUp;
+	private Image movingLeft;
+	private Image movingDown;
+	private Image movingRight;
 	private int points;
 	private int life;
 	private int end = 0;
 	private boolean switchImage = false;
-	boolean canMove = true;
-	double movement = 13.3333333*2;
-	double movementX = 10.666666*2;
-	int imgSize = 40;
-	boolean carDeath = false;
-	boolean waterDeath = false;
-	boolean stop = false;
+	private boolean canMove = true;
+	private double movement = 13.3333333*2;
+	private double movementX = 10.666666*2;
+	private int imgSize = 40;
+	private boolean carDeath = false;
+	private boolean waterDeath = false;
+	private boolean stop = false;
+	private int carD = 0;
+	private double previousY = 800;
 	public boolean changeScore = false;
-	int carD = 0;
-	double previousY = 800;
 	ArrayList<End> inter = new ArrayList<>();
 	//------------------------------------------------------/Variables Initialization-------------------------------------------------------
 
