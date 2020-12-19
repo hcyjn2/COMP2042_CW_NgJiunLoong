@@ -1,6 +1,7 @@
 ![Frogger Banner](../../resources/Frogger%20Banner.png)
 
 ![GamePhoto_1](../../resources/GamePhoto_1.png)
+
 # COMP2042_CW_Ng Jiun Loong
 
 This is a documentation of the work I have done on this Assignment.
