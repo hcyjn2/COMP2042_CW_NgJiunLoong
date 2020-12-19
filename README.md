@@ -6,7 +6,7 @@
 
 This is a documentation of the work I have done on this Assignment.
 
-and this is the link to the video about this project.
+This is the link to the video about this project.
 https://drive.google.com/file/d/1-Mm_J9PedTUJ7W18_j6ul8ZAjEH8uPFt/view?usp=sharing
 
 ### Table of Content
