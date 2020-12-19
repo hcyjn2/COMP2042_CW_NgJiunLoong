@@ -6,7 +6,7 @@
 
 This is a documentation of the work I have done on this Assignment.
 
-###Table of Content
+### Table of Content
 1. Code Refactoring
    
     a. Rename Variables, Classes and Methods
@@ -28,7 +28,7 @@ This is a documentation of the work I have done on this Assignment.
 
    d. Mute/Unmute Button
 
-###1. Code Refactoring
+### 1. Code Refactoring
 ##### a. Rename Variables, Classes and Methods
 I have renamed several variables and methods throughout the project, but the most noticeable one will be the Frogger Class where i changed the class name from Animal to Frogger, and i have also changed Image variables' name to a more relevant name. For example, it was named imgW1, imgA1.... but i changed them to facingUp, movingDown.... . I have also changed the methods name to make them more readable and make them sounds like an action. For Instance, generateLevel(), resetLocation(), updateLifeBar() and etc.
 The reason of doing this is just to make the code more readable and easier to comprehend. Instead i, x, y, we can use isMusicPlaying, canMove, currentLevel to better represent what the variables hold.
@@ -39,7 +39,7 @@ There are several blocks of commented code and unused code in some classes, and 
 ##### d. Add Javadocs and Comment
 I have added Javadocs to the long methods to explain what the method does and what parameters it takes. The comment feature is also frequently used in the project to explain what a block of code or even a method does.
 
-###2. Additions
+### 2. Additions
 ##### a. Life System
 The life system is implemented for this game where the frogger only has 3 lives and everytime it dies, it will reduce a heart from the health bar which indicates the current lives you got shown in the left bottom corner of the game. This feature is implemented to increase the difficulty of the game and make the game "shorter" for the player, so they don't have to play through level 10 to stop the game.
 ##### b. Game Level System
