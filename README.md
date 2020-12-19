@@ -1,6 +1,6 @@
-![Frogger Banner](../../resources/Frogger%20Banner.png)
+![Frogger Banner](src/main/resources/Frogger%20Banner_1.png)
 
-![GamePhoto_1](../../resources/GamePhoto_1.png)
+![GamePhoto_1](src/main/resources/GamePhoto.png)
 
 # COMP2042_CW_Ng Jiun Loong
 
