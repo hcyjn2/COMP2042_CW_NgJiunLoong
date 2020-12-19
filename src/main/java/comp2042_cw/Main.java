@@ -44,7 +44,7 @@ public class Main extends Application {
 		Button aboutButton = new Button("file:src/main/resources/about.png", -28, 430);
 		Button exitButton = new Button("file:src/main/resources/exit.png", -28, 530);
 		Button backButton = new Button("file:src/main/resources/back.png", -28, 530);
-		Life lifeCountUI = new Life("file:src/main/resources/3lifes.png", 10, 755);
+		Life lifeBar = new Life("file:src/main/resources/3lifes.png", 10, 755);
 		//--------------------------------------------------/Game Assets initialization-------------------------------------------------------
 
 		//---------------------------------------------------Generates Game Asset-------------------------------------------------------------
@@ -52,7 +52,7 @@ public class Main extends Application {
 
 		backgroundStage.add(frogger);
 		backgroundStage.add(new Digit(0, 30, 532, 33));
-		backgroundStage.add(lifeCountUI);
+		backgroundStage.add(lifeBar);
 
 		generateGameMenu(gameMenuImage, startButton, aboutButton, exitButton);
 
@@ -113,7 +113,7 @@ public class Main extends Application {
 				//if frogger is dead, update Frogger life count
 				if(frogger.isDead()){
 					froggerLife = frogger.getLife();
-					updateLifeUI();
+					updateLifeBar();
 				}
 
 				//if all End portals has been activated, then trigger level up.
@@ -127,7 +127,7 @@ public class Main extends Application {
 					backgroundStage.add(frogger);
 
 					//reload UI elements
-					updateLifeUI();
+					updateLifeBar();
 					setNumber(frogger.getPoints());
 				}
 
@@ -186,7 +186,7 @@ public class Main extends Application {
 				}
 			}
 
-			private void updateLifeUI() {
+			private void updateLifeBar() {
 				if(froggerLife == 3)
 					backgroundStage.add(new Life("file:src/main/resources/3lifes.png", 10, 755));
 				else if(froggerLife == 2)
