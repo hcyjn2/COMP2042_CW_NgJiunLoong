@@ -9,7 +9,7 @@ This is a documentation of the work I have done on this Assignment.
 INSTALLING GUIDE(Intellij idea)
 1.  Start a new project
 2.  Project from version control
-3.  Select the Final_Version branch, and click on Code
+3.  Select the master branch, and click on Code
 4.  Copy the link
 5.  Paste the link in project from version control window
 6.  Then,click on run configuration(right upper corner)
