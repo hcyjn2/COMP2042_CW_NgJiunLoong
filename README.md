@@ -6,7 +6,22 @@
 
 This is a documentation of the work I have done on this Assignment.
 
+INSTALLING GUIDE(Intellij idea)
+1.  Start a new project
+2.  Project from version control
+3.  Select the Final_Version branch, and click on Code
+4.  Copy the link
+5.  Paste the link in project from version control window
+6.  Then,click on run configuration(right upper corner)
+7.  Click Edit Configuration
+8.  Add New Configuration(+)
+9.  Select Gradle
+10.  Choose COMP2042_CW_NgJiunLoong in the Gradle Project
+11.  Type run in the Tasks
+12.  Finally, select that configuration and run it.
+
 This is the link to the video about this project.
+
 https://drive.google.com/file/d/1-Mm_J9PedTUJ7W18_j6ul8ZAjEH8uPFt/view?usp=sharing
 
 ### Table of Content
